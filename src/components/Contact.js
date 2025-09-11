@@ -18,11 +18,6 @@ const Contact = () => {
         </div>
         
         <div className="contact-item">
-          <span>📱</span>
-          <a href={`tel:${personal.phone}`}>{personal.phone}</a>
-        </div>
-        
-        <div className="contact-item">
           <span>💼</span>
           <a href={personal.linkedin} target="_blank" rel="noopener noreferrer">
             LinkedIn Profile

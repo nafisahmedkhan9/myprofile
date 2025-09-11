@@ -27,9 +27,6 @@ const Hero = () => {
           <a href={personal.github} target="_blank" rel="noopener noreferrer" className="social-link">
             🐙 GitHub
           </a>
-          <a href={`tel:${personal.phone}`} className="social-link">
-            📱 {personal.phone}
-          </a>
         </div>
       </div>
     </section>

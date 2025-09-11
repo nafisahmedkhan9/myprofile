@@ -9,7 +9,7 @@ const Hero = () => {
       <div className="hero-content">
         <div className="profile-image-container">
           <img 
-            src="/profile-photo.jpg" 
+            src={`${process.env.PUBLIC_URL}/profile-photo.jpg`}
             alt="Nafis Ahmed Khan - Software Engineer"
             className="profile-image"
           />

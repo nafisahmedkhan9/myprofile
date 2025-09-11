@@ -30,12 +30,18 @@ body {
   z-index: 1000;
   padding: 1rem 2rem;
   border-bottom: 1px solid #e2e8f0;
+  transition: box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.navbar.mobile-menu-active {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .nav-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
 }
 
 .logo {
@@ -59,6 +65,233 @@ body {
 
 .nav-links a:hover {
   color: #2563eb;
+}
+
+/* Mobile Menu Button */
+.mobile-menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  z-index: 1001;
+  border-radius: 50%;
+  transition: background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mobile-menu-btn:hover {
+  background-color: rgba(37, 99, 235, 0.08);
+}
+
+.mobile-menu-btn:active {
+  background-color: rgba(37, 99, 235, 0.12);
+}
+
+/* Hamburger Icon */
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  width: 24px;
+  height: 18px;
+  position: relative;
+}
+
+.hamburger span {
+  display: block;
+  height: 2px;
+  width: 100%;
+  background: #64748b;
+  border-radius: 2px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: absolute;
+}
+
+.hamburger span:nth-child(1) {
+  top: 0;
+}
+
+.hamburger span:nth-child(2) {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.hamburger span:nth-child(3) {
+  bottom: 0;
+}
+
+/* Hamburger Active State */
+.hamburger.active span {
+  background: #2563eb;
+}
+
+.hamburger.active span:nth-child(1) {
+  transform: rotate(45deg);
+  top: 50%;
+  margin-top: -1px;
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+  transform: translateY(-50%) scale(0);
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg);
+  bottom: 50%;
+  margin-bottom: -1px;
+}
+
+/* Desktop Navigation - Hidden on Mobile */
+.desktop-nav {
+  display: flex;
+}
+
+/* Mobile Navigation - Integrated MUI-style */
+.mobile-nav {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: -2rem;
+  right: -2rem;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  flex-direction: column;
+  padding: 0;
+  border-top: 1px solid #e2e8f0;
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 999;
+}
+
+.mobile-nav.mobile-nav-open {
+  max-height: 650px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Custom scrollbar for mobile menu */
+.mobile-nav::-webkit-scrollbar {
+  width: 4px;
+}
+
+.mobile-nav::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.mobile-nav::-webkit-scrollbar-thumb {
+  background: rgba(37, 99, 235, 0.2);
+  border-radius: 2px;
+}
+
+.mobile-nav::-webkit-scrollbar-thumb:hover {
+  background: rgba(37, 99, 235, 0.3);
+}
+
+.mobile-nav li {
+  padding: 0;
+  width: 100%;
+  border-bottom: 1px solid rgba(241, 245, 249, 0.5);
+  line-height: 1.2;
+  background: linear-gradient(90deg, rgba(248, 250, 252, 0.8) 0%, rgba(241, 245, 249, 0.3) 100%);
+  border-left: 3px solid transparent;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.mobile-nav li:hover {
+  background: linear-gradient(90deg, rgba(59, 130, 246, 0.15) 0%, rgba(37, 99, 235, 0.08) 100%);
+  border-left: 3px solid rgba(37, 99, 235, 0.6);
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.1);
+}
+
+.mobile-nav li:last-child {
+  border-bottom: none;
+}
+
+.mobile-nav a {
+  display: block;
+  padding: 0.6rem 2rem 0.6rem 2.5rem;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 100%;
+  color: #64748b;
+  font-weight: 500;
+  text-decoration: none;
+  position: relative;
+  font-size: 0.95rem;
+  border-radius: 0 8px 8px 0;
+  margin: 1px 0;
+}
+
+.mobile-nav a:hover,
+.mobile-nav a:focus {
+  color: #2563eb;
+  padding-left: 2.7rem;
+  font-weight: 600;
+  transform: translateX(2px);
+  background: linear-gradient(90deg, rgba(59, 130, 246, 0.12) 0%, rgba(37, 99, 235, 0.06) 100%);
+}
+
+.mobile-nav a:active {
+  background: linear-gradient(90deg, rgba(37, 99, 235, 0.2) 0%, rgba(29, 78, 216, 0.15) 100%);
+  color: #1d4ed8;
+  transform: translateX(1px);
+}
+
+/* Active navigation highlight */
+.mobile-nav a.active {
+  color: #2563eb;
+  font-weight: 600;
+  background: linear-gradient(90deg, rgba(37, 99, 235, 0.12) 0%, rgba(59, 130, 246, 0.08) 100%);
+}
+
+
+/* Add visual indicators to menu items */
+.mobile-nav a::before {
+  content: '';
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 4px;
+  background: rgba(37, 99, 235, 0.4);
+  border-radius: 50%;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0;
+}
+
+.mobile-nav a:hover::before,
+.mobile-nav a.active::before {
+  opacity: 1;
+  width: 6px;
+  height: 6px;
+  background: #2563eb;
+}
+
+/* Subtle glow effect on hover */
+.mobile-nav li:hover {
+  box-shadow: inset 0 0 20px rgba(37, 99, 235, 0.05);
+}
+
+/* Alternating background colors for better distinction */
+.mobile-nav li:nth-child(even) {
+  background: linear-gradient(90deg, rgba(241, 245, 249, 0.9) 0%, rgba(248, 250, 252, 0.4) 100%);
+}
+
+.mobile-nav li:nth-child(even):hover {
+  background: linear-gradient(90deg, rgba(37, 99, 235, 0.12) 0%, rgba(59, 130, 246, 0.06) 100%);
+}
+
+/* Add a subtle top highlight to each item */
+.mobile-nav li::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(37, 99, 235, 0.1) 50%, transparent 100%);
 }
 
 /* Hero Section */
@@ -437,8 +670,26 @@ body {
     padding: 1rem;
   }
   
-  .nav-links {
-    gap: 1rem;
+  .navbar.mobile-menu-active {
+    background: rgba(255, 255, 255, 0.98);
+    border-bottom: 1px solid #e2e8f0;
+  }
+  
+  /* Hide desktop navigation on mobile */
+  .desktop-nav {
+    display: none;
+  }
+  
+  /* Show mobile menu button on mobile */
+  .mobile-menu-btn {
+    display: block;
+  }
+  
+  /* Enable mobile navigation on mobile screens */
+  .mobile-nav {
+    display: flex;
+    left: -1rem;
+    right: -1rem;
   }
   
   .hero {
@@ -470,6 +721,13 @@ body {
   
   .skills-grid {
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
+}
+
+/* Tablet breakpoint for better responsive design */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .nav-links {
+    gap: 1.5rem;
   }
 }
 

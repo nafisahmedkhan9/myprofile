@@ -18,7 +18,7 @@ function App() {
         agentUrl="https://nafis-ai-agent.onrender.com/iframe"
         // agentUrl="http://localhost:8000/iframe"
         position="bottom-right"
-        title="Ask About Nafis's Experience"
+        title="Chat with Nafis"
       />
       <Header />
       <Hero />

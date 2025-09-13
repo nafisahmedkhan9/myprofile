@@ -20,6 +20,8 @@ const NafisAIWidget = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [notificationCount, setNotificationCount] = useState(1);
+  const [showNotification, setShowNotification] = useState(true);
   const iframeRef = useRef(null);
 
   // Handle iframe load
@@ -31,6 +33,12 @@ const NafisAIWidget = ({
   const toggleWidget = () => {
     console.log('🔄 Toggling widget. Current state:', isOpen, '→', !isOpen);
     setIsOpen(!isOpen);
+    
+    // Hide notification when user opens the chat
+    if (!isOpen) {
+      setShowNotification(false);
+      setNotificationCount(0);
+    }
   };
 
   // Build iframe URL with query parameters
@@ -76,9 +84,23 @@ const NafisAIWidget = ({
       console.log('🧹 Cleaning up message listener');
       window.removeEventListener('message', handleMessage);
     };
-  }, []);
+   }, []);
 
-  // Seamless chat window styles (no card styling)
+   // Add notification cycling effect for more attraction
+   useEffect(() => {
+     if (!isOpen && showNotification) {
+       const interval = setInterval(() => {
+         setNotificationCount(prev => {
+           // Cycle through 1, 2, 3, then back to 1
+           return prev >= 3 ? 1 : prev + 1;
+         });
+       }, 4000); // Change every 4 seconds
+       
+       return () => clearInterval(interval);
+     }
+   }, [isOpen, showNotification]);
+
+   // Seamless chat window styles (no card styling)
   const getPositionStyles = () => {
     const baseStyles = {
       zIndex: 1000,
@@ -129,7 +151,7 @@ const NafisAIWidget = ({
     }
   };
 
-  // Toggle button styles (modern chat button)
+  // Toggle button styles (animated notification-style chat button)
   const toggleButtonStyles = {
     position: 'fixed',
     bottom: position.includes('bottom') ? '20px' : 'auto',
@@ -140,17 +162,90 @@ const NafisAIWidget = ({
     color: 'white',
     border: 'none',
     borderRadius: '50%',
-    width: '56px',
-    height: '56px',
+    width: '60px',
+    height: '60px',
     cursor: 'pointer',
-    boxShadow: '0 4px 16px rgba(0, 132, 255, 0.3)',
+    boxShadow: '0 6px 20px rgba(0, 132, 255, 0.4)',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    fontSize: '20px',
+    fontSize: '22px',
     zIndex: 1001,
     transition: 'all 0.3s ease',
   };
+
+  // Notification badge styles
+  const notificationBadgeStyles = {
+    position: 'absolute',
+    top: '-2px',
+    right: '-2px',
+    backgroundColor: '#ff4757',
+    color: 'white',
+    borderRadius: '50%',
+    width: '20px',
+    height: '20px',
+    fontSize: '10px',
+    fontWeight: 'bold',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    border: '2px solid white',
+    animation: 'badge-pulse 1.5s infinite',
+  };
+
+  // Add CSS animations via style tag for attractive notification button
+  const animationStyles = `
+    @keyframes pulse {
+      0% { 
+        box-shadow: 0 6px 20px rgba(0, 132, 255, 0.4);
+        background-color: #0084ff;
+      }
+      50% { 
+        box-shadow: 0 6px 35px rgba(0, 132, 255, 0.8);
+        background-color: #0099ff;
+      }
+      100% { 
+        box-shadow: 0 6px 20px rgba(0, 132, 255, 0.4);
+        background-color: #0084ff;
+      }
+    }
+    
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0) scale(1); }
+      40% { transform: translateY(-10px) scale(1.05); }
+      60% { transform: translateY(-5px) scale(1.02); }
+    }
+    
+    @keyframes badge-pulse {
+      0% { 
+        transform: scale(1);
+        background-color: #ff4757;
+      }
+      50% { 
+        transform: scale(1.3);
+        background-color: #ff6b7a;
+      }
+      100% { 
+        transform: scale(1);
+        background-color: #ff4757;
+      }
+    }
+    
+    @keyframes glow {
+      0%, 100% { filter: brightness(1); }
+      50% { filter: brightness(1.2) drop-shadow(0 0 10px rgba(0, 132, 255, 0.7)); }
+    }
+    
+    .chat-button {
+      animation: pulse 2s infinite, bounce 4s infinite, glow 3s infinite !important;
+    }
+    
+    .chat-button:hover {
+      transform: scale(1.15) !important;
+      box-shadow: 0 10px 30px rgba(0, 132, 255, 0.8) !important;
+      animation-play-state: paused !important;
+    }
+  `;
 
   // Loading spinner styles
   const loadingStyles = {
@@ -176,20 +271,28 @@ const NafisAIWidget = ({
 
   return (
     <>
-      {/* Toggle Button (only shown when chat is closed) */}
+      {/* Add CSS animations */}
+      <style>
+        {animationStyles}
+      </style>
+
+      {/* Animated Toggle Button with Notification (only shown when chat is closed) */}
       {showToggle && !isOpen && (
         <button
           onClick={toggleWidget}
           style={toggleButtonStyles}
-          title="Chat with Nafis"
-          aria-label="Open Chat"
-          onMouseOver={(e) => {
-            e.target.style.transform = 'scale(1.05)';
-          }}
-          onMouseOut={(e) => {
-            e.target.style.transform = 'scale(1)';
-          }}
+          className="chat-button"
+          title="💬 New message! Chat with Nafis's AI Assistant"
+          aria-label="Open Chat - You have new messages"
         >
+          {/* Dynamic Notification Badge */}
+          {showNotification && notificationCount > 0 && (
+            <div style={notificationBadgeStyles}>
+              {notificationCount}
+            </div>
+          )}
+          
+          {/* Chat Icon */}
           💬
         </button>
       )}

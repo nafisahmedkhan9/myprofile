@@ -34,7 +34,7 @@ export const resumeData = {
   experience: [
     {
       id: 1,
-      title: "💼 Software Solutions Engineer-2",
+      title: "💼 Software Engineer 2",
       company: "🏢 Gupshup Technologies",
       location: "📍 Mumbai",
       duration: "📅 Nov 2021 - Current",
@@ -92,6 +92,74 @@ export const resumeData = {
   ],
   
   projects: [
+    {
+      id: 20,
+      title: "Gross Profit & Margin ETA Pipeline (CPaaS)",
+      description:
+        "Python data pipeline for automated monthly gross profit, margin, and MRR projections across multi-product CPaaS data.",
+      technologies: ["Python", "pandas", "SQLAlchemy", "MySQL", "Redshift"],
+      features: [
+        "Built a Python data pipeline using pandas, SQLAlchemy, MySQL, and Redshift",
+        "Automated computation of monthly gross profit, margin, and MRR projections",
+        "Processed multi-product CPaaS data (WhatsApp, SMS, RCS, Voice)",
+        "Enabled business insights through automated reporting and structured logging"
+      ]
+    },
+    {
+      id: 21,
+      title: "Gross Margin Predictor (Analytics Dashboard)",
+      description:
+        "Full-stack analytics dashboard for revenue, margin, and volume KPIs with secure access and scalable backend APIs.",
+      technologies: ["React.js", "Node.js", "MySQL", "Redshift", "Google OAuth"],
+      features: [
+        "Developed a full-stack analytics dashboard using React.js, Node.js, MySQL, and Redshift",
+        "Visualized KPIs like revenue, margin, and volume with filters and reports",
+        "Implemented authentication (Google OAuth) and role-based access",
+        "Designed scalable backend APIs for analytics data processing"
+      ]
+    },
+    {
+      id: 22,
+      title: "Deal Desk Analytics Dashboard",
+      description:
+        "React-based dashboard integrated with Salesforce for pipeline, approvals, and turnaround time analytics.",
+      technologies: ["React", "Salesforce", "Node.js"],
+      features: [
+        "Built a React-based dashboard integrated with Salesforce (SFDC) APIs",
+        "Developed analytics views for pipeline, approvals, and turnaround time (TAT)",
+        "Implemented secure backend using Node.js with authentication and rate limiting",
+        "Added error handling and fallback mechanisms for robust data fetching"
+      ]
+    },
+    {
+      id: 23,
+      title: "Chatbot Platform & Enterprise Solutions (Node.js)",
+      description:
+        "Scalable conversational solutions on WhatsApp, Facebook Messenger, and web widgets using Node.js and the Gupshup platform.",
+      technologies: [
+        "Node.js",
+        "Gupshup",
+        "WhatsApp",
+        "Facebook Messenger",
+        "Web widgets",
+        "Webhooks"
+      ],
+      features: [
+        "Designed and developed scalable chatbot applications using Node.js for platforms like WhatsApp, Facebook Messenger, and web widgets",
+        "Built and deployed conversational AI solutions using Gupshup platform with API integrations and webhook-based architecture",
+        "Implemented chatbot workflows, user interaction flows, and automation for customer engagement",
+        "Delivered solutions for enterprise clients across banking, healthcare, and e-commerce domains"
+      ],
+      clients: [
+        "National Consumer Helpline (Govt. of India)",
+        "Kotak",
+        "Swiggy",
+        "Policybazaar",
+        "Dell",
+        "Zeiss",
+        "Haier India"
+      ]
+    },
     {
       id: 1,
       title: "🧾 Smart Receipt Processor (Python - OCR + AI)",
